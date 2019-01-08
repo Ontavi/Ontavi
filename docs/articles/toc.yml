@@ -1,0 +1,26 @@
+- name: Introduction
+  href: intro.md
+
+- name: Getting Started
+  href: getting-started.md
+
+- name: Installation
+  href: installation.md
+
+- name: Pipelines
+  href: pipelines.md
+
+- name: Agents & Pools
+  href: agents.md
+
+- name: Deploying & Testing
+  href: deployment.md
+
+- name: Configuration
+  href: configuration.md
+
+- name: Monitoring & Logging
+  href: monitoring.md
+
+- name: Extensibility
+  href: extensibility.md

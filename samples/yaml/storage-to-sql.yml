@@ -1,0 +1,140 @@
+# The first section of an Ontavi YAML integration definition file provides some metadata used by the
+# engine and the dashboard to identify this integration. 
+name: SampleBlobLoader
+description: Sample Azure Blob Storage to SQL Server Data Load
+version: 1
+
+# Endpoints define the configuration needed to access an external resource or system. They should not
+# identify the specific resource but provide enough information to connect to the server or system
+# in which the resource resides.
+endpoints:
+  - name: SampleBlobStorage
+    type: AzureStorageEndpoint
+    accountName: sampleblobaccount
+    accountKey: QmR/joRYoPKi3eK93U0GnftvJkVaLWX7bzaXwdcF6Bbgw0Wo66kPUSt/70zsdCC2IDK0cS7uHwgnbVRySgHPqg
+
+  - name: SampleDatabaseSqlServer
+    type: SqlServerEndpoint
+    connectionString: Server=myServerAddress;Database=myDataBase;User Id=myUsername;Password=myPassword;
+
+# Schemas provide a type definition for complex or compound data objects that will flow between 
+# middleware in the pipeline. This allows the engine to do basic type checking at runtime.
+schemas:
+  - name: SampleFileSchema
+    fields:
+      - employeeId: number
+        firstName: text
+        lastName: text
+        birthday: date
+        address:
+          - streetNumber: number
+            streetName: text
+            city: text
+            state: text
+            postalCode: text
+        favoriteColors: text array
+        favoriteNumbers: number array
+
+# The trigger is the activity that starts the pipeline. In this example, the trigger is a timer 
+# that executes once per minute. Like middleware below, triggers may accept inputs or provide
+# outputs. Additionally, depending on the type of trigger, there may be an endpoint associated
+# with it (for example, to receive messages from an AMQP queue).
+trigger:
+  - name: Every 1 minute
+    type: TimerTrigger
+    inputs:
+      - interval: 1m
+    outputs:
+      - startTime: startTime
+
+# The pipeline defines the steps (middleware) that get executed when the integration starts.
+# Most pipelines will accept one or more inputs and provide one or more outputs. The names
+# of the input and output fields are definted by the middleware, but can be mapped to variables
+# that are then made available to future middleware.
+#
+# TODO for this section:
+#   How do we handle no file being available?
+#   Do we want to change the Trigger to be "New File Available" on Blob Storage?
+#   Try/Catch? Error handling?
+pipeline:
+  - name: List files in blob storage
+    type: ListBlobStorage
+    endpoint: SampleBlobStorage
+    inputs:
+      - containerName: sample-files
+        pattern: sample*.txt
+    outputs:
+      fileList: filesInStorage
+
+  - name: Sort file listing by modified date
+    type: SortArray
+    inputs:
+      - source: filesInStorage
+        sortBy: ModifiedDate DESC
+        limit: 1
+    outputs:
+      - result: filesSorted
+
+  - name: Read file from blob storage
+    type: ReadFileBlobStorage
+    endpoint: SampleBlobStorage
+    inputs:
+      - containerName: sample-files
+        fileName: filesSorted[0]
+    outputs:
+      - content: fileContent
+
+  - name: Parse file to JSON content
+    type: JsonParser
+    schema: SampleFileSchema
+    inputs:
+      - source: fileContent
+    outputs:
+      - result: parsedEmployees
+
+  - name: Flatten address field
+    type: FieldManipulation
+    inputs:
+      - parsedEmployees
+    output:
+      - result: employeeData
+    map:
+        - outputPopulation: copy-from-source
+          fields:
+            - fullAddress: 
+                - type: concatenate
+                  values:
+                    - field: parsedEmployees[].address.streetNumber
+                      constant: " "
+                      field: parsedEmployees[].address.streetName
+                      constant: ", "
+                      field: parsedEmployees[].address.city
+                      constant: ", " 
+                      field: parsedEmployees[].address.state
+                      constant: " "
+                      field: parsedEmployees[].address.postalCode
+              modifiedDate: startTime
+                - type: copy
+
+  - name: Insert records to table
+    type: SqlServerBulkUpsert
+    endpoint: SampleDatabaseSqlServer
+    inputs:
+      - sources:
+        - employeeData
+          modifiedDate
+        keyColumn: EmployeeID
+    map:
+      - EmployeeID: employeeData[].employeeId
+        FirstName: employeeData[].firstName
+        LastName: employeeData[].lastName
+        Birthday: employeeData[].birthday
+        Address: employeeData[].fullAddress
+        ModifiedDate: employeeData[].modifiedDate
+  
+  - name: Delete file from blob storage
+    type: DeleteFileBlobStorage
+    endpoint: SampleBlobStorage
+    inputs:
+      - containerName: sample-files
+        fileName: filesSorted[0]
