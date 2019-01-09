@@ -2,7 +2,7 @@
 
 # What is a pipeline?
 
-A Pipeline is similar to a workflow; it is a series of tasks to execute upon one or more data sets. The starting activity of a pipeline is the Trigger. The data output of a pipeline is provided to one or more Sinks. The steps in between to transform, manipulate, or enrich the data are called Middleware.
+A Pipeline is similar to a workflow; it is a series of tasks to execute upon one or more sets of data. The starting activity of a pipeline is the Trigger. The data output of a pipeline is provided to one or more Sinks. The steps in between to transform, manipulate, or enrich the data are called Middleware.
 
 Middleware typically accept input data and generate some sort of output. This data is made available to other middleware further in the pipeline by using Variables. Variables must have a Schema in the pipeline definition to describe the structure of the data.
 
