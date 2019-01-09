@@ -6,7 +6,7 @@ A Pipeline is similar to a workflow; it is a series of tasks to execute upon one
 
 Middleware typically accept input data and generate some sort of output. This data is made available to other middleware further in the pipeline by using Variables. Variables must have a Schema in the pipeline definition to describe the structure of the data.
 
-Each middleware has a list of inputs and outputs. Inputs and outputs have a name (e.g. *source*, *query*, or *containerName*) defined by the middleware's creator. Typically, input and output types are well known; however, sometimes the structure of outputs is dependent on how the middleware is configured, such as SQL query resultsets.
+Each middleware has a list of inputs and outputs. Inputs and outputs have a name (e.g. `source`, `query`, or `containerName`) defined by the middleware's creator. Typically, input and output types are well known; however, sometimes the structure of outputs is dependent on how the middleware is configured, such as SQL query resultsets.
 
 Pipelines fully support **extract, transform, load (ETL)** workloads of very large sizes. Large datasets are supported by streaming chunks of data at a time through middleware instead of the entire dataset. In the future, this will also allow the Ontavi engine to parallelize larger pipelines across multiple agents for CPU-bound work.
 
