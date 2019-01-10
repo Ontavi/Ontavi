@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28306.52
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OntaviSDK", "OntaviSDK\OntaviSDK.csproj", "{5C3AD62C-2261-4655-99FC-EE5CF66D23DB}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5C3AD62C-2261-4655-99FC-EE5CF66D23DB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5C3AD62C-2261-4655-99FC-EE5CF66D23DB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5C3AD62C-2261-4655-99FC-EE5CF66D23DB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5C3AD62C-2261-4655-99FC-EE5CF66D23DB}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {0A00B7CB-BDF3-4051-95D1-6FDB5970DFE4}
+	EndGlobalSection
+EndGlobal
