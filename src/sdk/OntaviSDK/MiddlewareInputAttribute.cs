@@ -8,11 +8,11 @@ namespace OntaviSDK
     /// <summary>
     /// Denotes that a field on a <see cref="Middleware"/> instance is input to the middleware.
     /// </summary>
-    public class MiddlewareInputAttribute : MiddlewareFieldDescriptorAttribute
+    public class MiddlewareInputAttribute : PropertyDescriptorAttribute
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="MiddlewareInputAttribute"/> class with the specified
-        /// identifier, name, and optional description of the purpose of the input.
+        /// identifier and optional description of the purpose of the input.
         /// </summary>
         /// <param name="id">The identifier of the field; used in YAML files to write values to the input.</param>
         /// <param name="description">
