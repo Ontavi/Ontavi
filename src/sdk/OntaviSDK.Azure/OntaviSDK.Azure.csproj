@@ -4,7 +4,7 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <Authors>Ontavi LLC and Open Source Contributors</Authors>
     <Company>Ontavi LLC</Company>
-    <Product>Ontavi SDK</Product>
+    <Product>Ontavi Azure Middleware</Product>
     <PackageProjectUrl>https://github.com/Ontavi/Ontavi</PackageProjectUrl>
     <PackageIconUrl>https://github.com/Ontavi/Ontavi/raw/master/media/nuget-logo.png</PackageIconUrl>
     <PackageTags>ontavi integration workflow pipeline etl</PackageTags>
@@ -15,11 +15,11 @@
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DocumentationFile>OntaviSDK.xml</DocumentationFile>
+    <DocumentationFile>OntaviSDK.Azure.xml</DocumentationFile>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <DocumentationFile>OntaviSDK.xml</DocumentationFile>
+    <DocumentationFile>OntaviSDK.Azure.xml</DocumentationFile>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
   </PropertyGroup>
 
@@ -28,12 +28,15 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="2.2.0" />
     <PackageReference Include="StyleCop.Analyzers" Version="1.0.2">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Syroot.BinaryData" Version="5.0.0" />
+    <PackageReference Include="TwentyTwenty.Storage.Azure" Version="2.9.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\OntaviSDK\OntaviSDK.csproj" />
   </ItemGroup>
 
 </Project>

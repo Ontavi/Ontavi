@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28306.52
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OntaviSDK", "OntaviSDK\OntaviSDK.csproj", "{5C3AD62C-2261-4655-99FC-EE5CF66D23DB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OntaviSDK", "OntaviSDK\OntaviSDK.csproj", "{5C3AD62C-2261-4655-99FC-EE5CF66D23DB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OntaviSDK.Azure", "OntaviSDK.Azure\OntaviSDK.Azure.csproj", "{C8819429-DB91-41A5-B993-8F72106E90FD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{5C3AD62C-2261-4655-99FC-EE5CF66D23DB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5C3AD62C-2261-4655-99FC-EE5CF66D23DB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5C3AD62C-2261-4655-99FC-EE5CF66D23DB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C8819429-DB91-41A5-B993-8F72106E90FD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C8819429-DB91-41A5-B993-8F72106E90FD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C8819429-DB91-41A5-B993-8F72106E90FD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C8819429-DB91-41A5-B993-8F72106E90FD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
