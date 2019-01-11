@@ -331,3 +331,4 @@ ASALocalRun/
 
 # XML Documentation generated on build
 /src/sdk/OntaviSDK/OntaviSDK.xml
+/src/sdk/OntaviSDK.Azure/OntaviSDK.Azure.xml
