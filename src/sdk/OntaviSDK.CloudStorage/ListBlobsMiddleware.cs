@@ -5,6 +5,7 @@
 
 namespace OntaviSDK.CloudStorage
 {
+    using System.Collections.Generic;
     using System.Threading.Tasks;
 
     /// <summary>
@@ -21,7 +22,7 @@ namespace OntaviSDK.CloudStorage
         /// <summary>
         /// Gets or sets the name of the container from which to get a list of blobs.
         /// </summary>
-        [MiddlewareInput("containerName", FieldType.Text, FieldFlags.Required, "The name of the container.")]
+        [MiddlewareInput("containerName", FieldType.Text, description: "The name of the container.")]
         public PersistedObject ContainerName { get; set; }
 
         /// <summary>
@@ -34,7 +35,22 @@ namespace OntaviSDK.CloudStorage
         public async override Task ExecuteAsync(MiddlewareExecutionContext context)
         {
             var storageProvider = this.StorageEndpoint.GetStorageProvider();
-            var blobs = await storageProvider.ListBlobsAsync(await this.ContainerName.GetTextAsync());
+            var resultList = new List<ListBlobItem>();
+
+            foreach (var blob in await storageProvider.ListBlobsAsync(await this.ContainerName.GetTextAsync()))
+            {
+                resultList.Add(new ListBlobItem()
+                {
+                    Name = blob.Name,
+                    Url = blob.Url,
+                    Length = blob.Length,
+                    ContentType = blob.ContentType,
+                    ContentDisposition = blob.ContentDisposition,
+                    ContentMD5 = blob.ContentMD5,
+                    ETag = blob.ETag,
+                    LastModified = blob.LastModified
+                });
+            }
 
             // TODO: Handle output
         }

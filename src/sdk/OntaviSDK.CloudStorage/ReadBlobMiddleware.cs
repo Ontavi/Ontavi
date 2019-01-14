@@ -21,13 +21,13 @@ namespace OntaviSDK.CloudStorage
         /// <summary>
         /// Gets or sets the name of the container or bucket in which the blob resides.
         /// </summary>
-        [MiddlewareInput("containerName", FieldType.Text, FieldFlags.Required, "The name of the container or bucket in which the blob resides.")]
+        [MiddlewareInput("containerName", FieldType.Text, description: "The name of the container or bucket in which the blob resides.")]
         public PersistedObject ContainerName { get; set; }
 
         /// <summary>
         /// Gets or sets the name of the file in blob storage to read.
         /// </summary>
-        [MiddlewareInput("fileName", FieldType.Text, FieldFlags.Required, "The name of the file in blob storage to read.")]
+        [MiddlewareInput("fileName", FieldType.Text, description: "The name of the file in blob storage to read.")]
         public PersistedObject FileName { get; set; }
 
         /// <summary>
