@@ -29,8 +29,8 @@ namespace OntaviSDK
         Dictionary = 0x2,
 
         /// <summary>
-        /// Field is required; a null or empty value will result in an error.
+        /// Field is optional; a null or empty value will not result in an error.
         /// </summary>
-        Required = 0x4
+        Optional = 0x4
     }
 }
