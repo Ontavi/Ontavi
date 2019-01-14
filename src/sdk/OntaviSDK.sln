@@ -5,7 +5,7 @@ VisualStudioVersion = 15.0.28306.52
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OntaviSDK", "OntaviSDK\OntaviSDK.csproj", "{5C3AD62C-2261-4655-99FC-EE5CF66D23DB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OntaviSDK.Azure", "OntaviSDK.Azure\OntaviSDK.Azure.csproj", "{C8819429-DB91-41A5-B993-8F72106E90FD}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OntaviSDK.CloudStorage", "OntaviSDK.CloudStorage\OntaviSDK.CloudStorage.csproj", "{C8819429-DB91-41A5-B993-8F72106E90FD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

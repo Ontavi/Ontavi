@@ -3,21 +3,20 @@
 // Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
 // </copyright>
 
-namespace OntaviSDK.Azure
+namespace OntaviSDK.CloudStorage
 {
     using System.Threading.Tasks;
-    using TwentyTwenty.Storage.Azure;
 
     /// <summary>
-    /// Gets a list of blobs from Azure storage.
+    /// Gets a list of blobs from cloud storage.
     /// </summary>
     public class ListBlobsMiddleware : Middleware
     {
         /// <summary>
-        /// Gets or sets the <see cref="AzureBlobStorageEndpoint"/> from which to list blobs.
+        /// Gets or sets the <see cref="IStorageEndpoint"/> from which to list blobs.
         /// </summary>
         [MiddlewareEndpoint("storage", "Provide the endpoint from which to list blobs.")]
-        public AzureBlobStorageEndpoint StorageEndpoint { get; set; }
+        public IStorageEndpoint StorageEndpoint { get; set; }
 
         /// <summary>
         /// Gets or sets the name of the container from which to get a list of blobs.
@@ -34,11 +33,7 @@ namespace OntaviSDK.Azure
         /// <inheritdoc/>
         public async override Task ExecuteAsync(MiddlewareExecutionContext context)
         {
-            var storageProvider = new AzureStorageProvider(new AzureProviderOptions()
-            {
-                ConnectionString = this.StorageEndpoint.ConnectionString
-            });
-
+            var storageProvider = this.StorageEndpoint.GetStorageProvider();
             var blobs = await storageProvider.ListBlobsAsync(await this.ContainerName.GetTextAsync());
 
             // TODO: Handle output

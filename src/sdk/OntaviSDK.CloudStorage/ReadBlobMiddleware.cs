@@ -3,26 +3,25 @@
 // Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
 // </copyright>
 
-namespace OntaviSDK.Azure
+namespace OntaviSDK.CloudStorage
 {
     using System.Threading.Tasks;
-    using TwentyTwenty.Storage.Azure;
 
     /// <summary>
-    /// Reads a blob from Azure storage and outputs the blob content.
+    /// Reads a blob from cloud storage and outputs the blob content.
     /// </summary>
     public class ReadBlobMiddleware : Middleware
     {
         /// <summary>
-        /// Gets or sets the <see cref="AzureBlobStorageEndpoint"/> from which the blob should be read.
+        /// Gets or sets the <see cref="IStorageEndpoint"/> from which the blob should be read.
         /// </summary>
         [MiddlewareEndpoint("storage", "Provide the endpoint from which to read a blob.")]
-        public AzureBlobStorageEndpoint StorageEndpoint { get; set; }
+        public IStorageEndpoint StorageEndpoint { get; set; }
 
         /// <summary>
-        /// Gets or sets the name of the container in which the blob resides.
+        /// Gets or sets the name of the container or bucket in which the blob resides.
         /// </summary>
-        [MiddlewareInput("containerName", FieldType.Text, FieldFlags.Required, "The name of the container in which the blob resides.")]
+        [MiddlewareInput("containerName", FieldType.Text, FieldFlags.Required, "The name of the container or bucket in which the blob resides.")]
         public PersistedObject ContainerName { get; set; }
 
         /// <summary>
@@ -40,13 +39,9 @@ namespace OntaviSDK.Azure
         /// <inheritdoc/>
         public async override Task ExecuteAsync(MiddlewareExecutionContext context)
         {
-            var storageProvider = new AzureStorageProvider(new AzureProviderOptions()
-            {
-                ConnectionString = this.StorageEndpoint.ConnectionString
-            });
-
+            var storageProvider = this.StorageEndpoint.GetStorageProvider();
             var blob = await storageProvider.GetBlobStreamAsync(await this.ContainerName.GetTextAsync(), await this.FileName.GetTextAsync());
-            
+
             // TODO: Handle output
         }
     }
